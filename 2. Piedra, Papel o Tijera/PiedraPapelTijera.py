@@ -13,7 +13,14 @@ while (user_score < 3 and pc_score < 3):
     print(f" RONDA {round}")
     print("*" * 10)
 
-    user_choice = input("\nElija Piedra, Papel o Tijera: ").capitalize()
+    valid_choice = False
+
+    while (valid_choice == False):
+        user_choice = input("\nElija Piedra, Papel o Tijera: ").capitalize()
+
+        if(user_choice in options):
+            valid_choice = True
+    
     pc_choice = random.choice(options)
 
     print(f"\nEl usuario eligió {user_choice}")
