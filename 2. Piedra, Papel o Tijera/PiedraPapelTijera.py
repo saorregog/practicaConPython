@@ -1,17 +1,10 @@
 # JUEGO DE PIEDRA, PAPEL O TIJERA
 
-import random
+# FUNCIÓN DE ELECCIÓN DE OPCIONES
+def choose_options():
+    import random
 
-options = ("Piedra", "Papel", "Tijera")
-
-user_score = int(0)
-pc_score = int(0)
-round = int(1)
-
-while (user_score < 3 and pc_score < 3):
-    print("\n" + "*" * 10)
-    print(f" RONDA {round}")
-    print("*" * 10)
+    options = ("Piedra", "Papel", "Tijera")
 
     valid_choice = False
 
@@ -23,8 +16,14 @@ while (user_score < 3 and pc_score < 3):
     
     pc_choice = random.choice(options)
 
-    print(f"\nEl usuario eligió {user_choice}")
-    print(f"La máquina eligió {pc_choice}")
+    print(f"\nEl usuario eligió {user_choice}" , f"\nLa máquina eligió {pc_choice}")
+
+    return user_choice, pc_choice
+
+# FUNCIÓN DE PUNTUACIÓN
+def score(user_choice, pc_choice):
+    user_score = int(0)
+    pc_score = int(0)
 
     if (user_choice == pc_choice):
         print("\n¡¡EMPATE!!")
@@ -35,16 +34,40 @@ while (user_score < 3 and pc_score < 3):
         pc_score += 1
         print("\n¡¡EL USUARIO PIERDE!!")
 
-    round += 1
+    return user_score, pc_score
 
-    if (user_score == 3 or pc_score == 3):
-        continue
-    else:
-        print(f"\nEl marcador es: Usuario {user_score} - Máquina {pc_score}")
+# FUNCIÓN DE EJECUCIÓN DE JUEGO
+def run_game():
+    round = int(1)
 
-print(f"\nEl marcador FINAL es: Usuario {user_score} - Máquina {pc_score}")
+    user_global_score = int(0)
+    pc_global_score = int(0)
 
-if (user_score == 3):
+    while (user_global_score < 3 and pc_global_score < 3):
+        print("\n" + "*" * 10)
+        print(f" RONDA {round}")
+        print("*" * 10)
+    
+        user_choice, pc_choice = choose_options()
+
+        user_score, pc_score = score(user_choice, pc_choice)
+
+        user_global_score += user_score
+        pc_global_score += pc_score
+
+        round += 1
+
+        if (user_global_score != 3 and pc_global_score != 3):
+            print(f"\nEl marcador es: Usuario {user_global_score} - Máquina {pc_global_score}")
+    
+    return user_global_score, pc_global_score
+
+# EJECUCIÓN DEL JUEGO
+user_global_score, pc_global_score = run_game()
+
+print(f"\nEl marcador FINAL es: Usuario {user_global_score} - Máquina {pc_global_score}")
+
+if (user_global_score == 3):
     print("\n=> EL USUARIO ES EL GANADOR DEL JUEGO <=\n")
 else:
     print("\n=> LA MÁQUINA ES EL GANADOR DEL JUEGO <=\n")
