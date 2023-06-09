@@ -1,5 +1,5 @@
 # VERSIÓN 1
-def r2rightTriangle(strArr):
+def r2rightTriangle1(strArr):
     if (len(strArr) <= 2):
         return 0
 
@@ -38,3 +38,28 @@ def r2rightTriangle(strArr):
                     strArr_2points[j] = []
 
     return len(list(filter(lambda e: e != [], strArr_2points)))
+
+print(r2rightTriangle1(["2,0", "2,2", "2,4", "2,10",
+      "2,12", "1000,14", "2,14", "3,14", "4,14", "5,14"]))
+
+
+# VERSIÓN 2
+def r2rightTriangle2(strArr):
+    if (len(strArr) <= 2):
+        return 0
+
+    strArr = [element.split(",") for element in strArr]
+
+    strArr_x = list()
+
+    for i in range(len(strArr) - 1):
+        for j in range(i + 1, len(strArr)):
+            if (strArr[j][0] == strArr[i][0]):
+                for k in range(len(strArr)):
+                    if (strArr[k][0] != strArr[i][0] and (strArr[k][1] == strArr[i][1] or strArr[k][1] == strArr[j][1])):
+                        strArr_x.append([strArr[i], strArr[j], strArr[k]])
+
+    return len(strArr_x)
+
+print(r2rightTriangle2(["2,0", "2,2", "2,4", "2,10",
+      "2,12", "1000,14", "2,14", "3,14", "4,14", "5,14"]))
