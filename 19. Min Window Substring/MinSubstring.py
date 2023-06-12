@@ -4,7 +4,7 @@ def MinWindowSubstring(strArr):
 
     result = list()
 
-    for i in range(len(k)):
+    for i in range(len(k) - len(n) + 1):
         for j in range(len(k), len(n) - 1 + i, -1):
             copy_k = k[i:j]
             is_in = True
@@ -22,3 +22,5 @@ def MinWindowSubstring(strArr):
     return sorted(result, key=lambda e: len(e), reverse=False)[0]
 
 print(MinWindowSubstring(["aaabaaddae", "aed"]))
+print(MinWindowSubstring(["vvavereveaevafefaef", "vvev"]))
+print(MinWindowSubstring(["cccaabbbbrr", "rbac"]))
