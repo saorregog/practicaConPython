@@ -8,16 +8,15 @@ def count_rect_triang(points):
 
     triangles = list()
 
-    for i in range(len(points)):
-        for j in range(len(points)):
-            if (j != i):
-                for k in range(len(points)):
-                    if (k != i and k != j):
-                        triangles.append([points[i], points[j], points[k]])
+    for i in range(len(points) - 1):
+        for j in range(i + 1, len(points)):
+            for k in range(len(points)):
+                if (k != i and k != j):
+                    triangles.append([points[i], points[j], points[k]])
 
-    for i in range(len(triangles)):
-        for j in range(len(triangles)):
-            if (j != i and triangles[i] != " " and triangles[j] != " "):
+    for i in range(len(triangles) - 1):
+        for j in range(i + 1, len(triangles)):
+            if (triangles[i] and triangles[j]):
                 count = int(0)
 
                 for k in range(len(triangles[i])):
@@ -25,9 +24,9 @@ def count_rect_triang(points):
                         count += 1
 
                 if (count == 3):
-                    triangles[j] = " "
+                    triangles[j] = ""
 
-    triangles = list(filter(lambda e: e != " ", triangles))
+    triangles = list(filter(lambda e: e != "", triangles))
 
     for i in range(len(triangles)):
         for j in range(len(triangles[i]) - 1):
@@ -42,7 +41,7 @@ def count_rect_triang(points):
     count = int(0)
 
     for triangle in triangles:
-        if (triangle[0] + triangle[1] == triangle[2] or triangle[1] + triangle[2] == triangle[0] or triangle[0] + triangle[2] == triangle[1]):
+        if (triangle[0] + triangle[1] == triangle[2] or triangle[0] + triangle[2] == triangle[1] or triangle[1] + triangle[2] == triangle[0]):
             count += 1
 
     return count
