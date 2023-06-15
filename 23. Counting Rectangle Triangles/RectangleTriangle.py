@@ -1,4 +1,4 @@
-def count_rect_triang(points):
+def count_rect_triang1(points):
     for i in range(len(points) - 1):
         for j in range(i + 1, len(points)):
             if (points[i] and points[j] and points[i] == points[j]):
@@ -46,17 +46,34 @@ def count_rect_triang(points):
 
     return count
 
-print(count_rect_triang([[1, 2], [3, 3], [4, 1], [1, 1], [4, -1]]))
-print(count_rect_triang([[1, 2],[4, -1],[3, 3],[4, -1],[4, 1],[1, 1],[4, -1], [4, -1], [3, 3], [1, 2]]))
-print(count_rect_triang([[30, 26], [36, 6], [12, 27], [9, 8], [9, 22], [6, 35], [26, 40],\
+print(count_rect_triang1([[1, 2], [3, 3], [4, 1], [1, 1], [4, -1]]))
+print(count_rect_triang1([[1, 2],[4, -1],[3, 3],[4, -1],[4, 1],[1, 1],[4, -1], [4, -1], [3, 3], [1, 2]]))
+print(count_rect_triang1([[30, 26], [36, 6], [12, 27], [9, 8], [9, 22], [6, 35], [26, 40],\
  [35, 18], [27, 2], [19, 18], [2, 41], [18, 3], [4, 37], [13, 25], [21, 34], [27, 45], [26, 12], [23, 16], [28, 1], [0, 25], [12, 25], [10, 41], [24, 18], [31, 38], [28, 17], [9, 23], [29, 1], [21, 43], [20, 46], [50, 10]]))
 
 
-# a = [[12, 27], [19, 18], [21, 34]]
-# # a = [[30, 26], [21, 34], [13, 25]]
+def count_rect_triang2(points):
+    points = list(set(map(lambda e: tuple(e), points)))
 
-# sij = round((a[0][1] - a[1][1]) / (a[0][0] - a[1][0]), 2)
-# sik = round((a[0][1] - a[2][1]) / (a[0][0] - a[2][0]), 2)
-# sjk = round((a[1][1] - a[2][1]) / (a[1][0] - a[2][0]), 2)
+    count = int(0)
+    triangles = list()
 
-# print(sik == round((-1 / sij), 2) or sjk == round((-1 / sij), 2))
+    for i in range(len(points) - 1):
+        for j in range(i + 1, len(points)):
+            for k in range(len(points)):
+                if (k != i and k != j):
+                    l2ij = (points[i][0] - points[j][0])**2 + (points[i][1] - points[j][1])**2
+                    l2jk = (points[j][0] - points[k][0])**2 + (points[j][1] - points[k][1])**2
+                    l2ik = (points[i][0] - points[k][0])**2 + (points[i][1] - points[k][1])**2
+
+                    if (l2ij + l2jk == l2ik or l2ij + l2ik == l2jk or l2jk + l2ik == l2ij):
+                        triangles.append([points[i], points[j], points[k]])
+
+    triangles = set(map(lambda e: tuple(sorted(e)), triangles))
+
+    return len(triangles)
+
+print(count_rect_triang2([[1, 2], [3, 3], [4, 1], [1, 1], [4, -1]]))
+print(count_rect_triang2([[1, 2],[4, -1],[3, 3],[4, -1],[4, 1],[1, 1],[4, -1], [4, -1], [3, 3], [1, 2]]))
+print(count_rect_triang2([[30, 26], [36, 6], [12, 27], [9, 8], [9, 22], [6, 35], [26, 40],\
+ [35, 18], [27, 2], [19, 18], [2, 41], [18, 3], [4, 37], [13, 25], [21, 34], [27, 45], [26, 12], [23, 16], [28, 1], [0, 25], [12, 25], [10, 41], [24, 18], [31, 38], [28, 17], [9, 23], [29, 1], [21, 43], [20, 46], [50, 10]]))
